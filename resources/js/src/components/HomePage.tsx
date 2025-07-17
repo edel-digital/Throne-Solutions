@@ -1,45 +1,33 @@
-import React from 'react';
-// import Header from './Header';
+import React, { useState, useEffect } from 'react';
 import Hero from './Hero';
 import FeaturedDestinations from './FeaturedDestinations';
-import About from './About';
-// import Services from './Services';
-import CoastSection from './CoastSection';
-import TravelGuide from './TravelGuide';
-import Tailor from './Tailor';
-import Testimonials from './testimonials';
-import Footer from './Footer';
-import Email from './Email';
 import Services from './Services';
-import Mission from './FeaturedDestinations';
-// import PromiseSection from './Promise';
-// import TeamSection from './Team';
-import Partners from './Partners';
 import ProgramsPage from './ProgramsHome';
-// import AboutUs from './AboutUsPage';
+import Testimonials from './testimonials';
+import Partners from './Partners';
+import Footer from './Footer';
+import Popup from './Popup'; // Import the Popup component
 
-function App() {
+function HomePage() {
+  const [showPopup, setShowPopup] = useState(false);
+
+  // Show popup on initial load
+  useEffect(() => {
+    setShowPopup(true);
+  }, []);
+
   return (
     <div className="font-sans">
-      {/* <Header /> */}
+      {showPopup && <Popup onClose={() => setShowPopup(false)} />}
       <Hero />
-      <Mission />
-       <Services />
-       <ProgramsPage />
-       {/* <PromiseSection /> */}
-       {/* <TeamSection /> */}
-       
-      {/* <About />
-      <CoastSection />
-      <TravelGuide />
-      <Tailor/> */}
+      <FeaturedDestinations />
+      <Services />
+      <ProgramsPage />
       <Testimonials/>
       <Partners />
-      {/* <Email/> */}
       <Footer />
-      {/* <AboutUs /> */}
     </div>
   );
 }
 
-export default App;
+export default HomePage;
