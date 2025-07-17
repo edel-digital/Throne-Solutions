@@ -25,15 +25,15 @@ const Header: React.FC = () => {
       name: 'Services', 
       path: '/services',
       submenu: [
-        { name: 'Executive Leadership Coaching', path: '/services/leadership' },
-        { name: 'Team Leadership Coaching', path: '/services/team' },
-        { name: 'Comprehensive Business Training & Consulting', path: '/services/business-training' },
-        { name: 'Leadership and Culture Development Program', path: '/services/culture-development' },
+        { name: 'Executive Leadership', path: '/services/leadership' },
+        { name: 'Team Leadership', path: '/services/team' },
+        { name: 'Business Training', path: '/services/business-training' },
+        { name: 'Culture Development', path: '/services/culture-development' },
       ]
     },
     { name: 'Programs', path: '/programs' },
     { name: 'Contact', path: '/contact' },
-    { name: 'News and Insights', path: '/news'}
+    { name: 'News', path: '/news'}
   ];
 
   const toggleServicesDropdown = () => {
@@ -48,25 +48,25 @@ const Header: React.FC = () => {
   }, [location]);
 
   return (
-    <header className="bg-white shadow-md py-3" ref={dropdownRef}>
+    <header className="bg-white shadow-md py-3 sticky top-0 z-50" ref={dropdownRef}>
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img 
             src="/images/logo-throne.png"
             alt="Throne Solutions Logo"
-            className="h-16 w-auto"
+            className="h-12 sm:h-16 w-auto" // Responsive logo size
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          <nav className="flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-6">
+          <nav className="flex items-center gap-4 lg:gap-6">
             {navLinks.map((link) => (
               <div key={link.name} className="relative group">
                 {link.submenu ? (
                   <div 
-                    className="flex items-center gap-1 cursor-pointer"
+                    className="flex items-center gap-1 cursor-pointer py-2"
                     onClick={toggleServicesDropdown}
                   >
                     <span className={`font-medium hover:text-brand transition-colors ${
@@ -80,12 +80,12 @@ const Header: React.FC = () => {
                     
                     {/* Services Dropdown */}
                     {servicesDropdownOpen && (
-                      <div className="absolute left-0 top-full mt-2 w-48 bg-white shadow-lg rounded-lg py-2 z-50">
+                      <div className="absolute left-0 top-full mt-1 w-56 bg-white shadow-lg rounded-lg py-2 z-50 border border-gray-100">
                         {link.submenu.map((subItem) => (
                           <Link
                             key={subItem.name}
                             to={subItem.path}
-                            className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-brand"
+                            className="block px-4 py-3 text-gray-800 hover:bg-gray-50 hover:text-brand text-sm"
                             onClick={() => setServicesDropdownOpen(false)}
                           >
                             {subItem.name}
@@ -97,7 +97,7 @@ const Header: React.FC = () => {
                 ) : (
                   <Link
                     to={link.path}
-                    className={`font-medium hover:text-brand transition-colors ${
+                    className={`font-medium hover:text-brand transition-colors py-2 ${
                       isActive(link.path) ? 'text-brand' : 'text-gray-800'
                     }`}
                   >
@@ -109,8 +109,8 @@ const Header: React.FC = () => {
           </nav>
 
           {/* Book a Session Button - Desktop */}
-          <Link to="/book">
-            <button className="px-6 py-3 border-2 border-[#FFD166] text-black font-bold rounded hover:bg-[#FFD166] transition-all duration-300 transform hover:-translate-y-1">
+          <Link to="/book" className="ml-2">
+            <button className="px-4 py-2.5 sm:px-5 sm:py-3 border-2 border-[#FFD166] text-black font-bold rounded hover:bg-[#FFD166] transition-all duration-300 text-sm sm:text-base">
               Book a Session
             </button>
           </Link>
@@ -118,7 +118,7 @@ const Header: React.FC = () => {
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-gray-600 hover:text-brand transition-colors"
+          className="md:hidden text-gray-600 hover:text-brand transition-colors p-2"
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Close menu" : "Open menu"}
         >
@@ -128,7 +128,7 @@ const Header: React.FC = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden bg-white shadow-lg">
+        <div className="md:hidden bg-white shadow-lg absolute top-full left-0 right-0 z-50">
           <div className="container mx-auto px-4 py-4 flex flex-col">
             {navLinks.map((link) => (
               <div key={link.name} className="border-b border-gray-100">
@@ -150,13 +150,16 @@ const Header: React.FC = () => {
                     
                     {/* Mobile Services Dropdown */}
                     {servicesDropdownOpen && (
-                      <div className="pl-4 flex flex-col">
+                      <div className="pl-4 flex flex-col pb-2">
                         {link.submenu.map((subItem) => (
                           <Link
                             key={subItem.name}
                             to={subItem.path}
-                            className="py-2 font-medium text-gray-600 hover:text-brand"
-                            onClick={() => setIsOpen(false)}
+                            className="py-3 font-medium text-gray-600 hover:text-brand border-b border-gray-100 last:border-0"
+                            onClick={() => {
+                              setIsOpen(false);
+                              setServicesDropdownOpen(false);
+                            }}
                           >
                             {subItem.name}
                           </Link>
@@ -179,9 +182,9 @@ const Header: React.FC = () => {
             ))}
 
             {/* Book a Session Button - Mobile */}
-            <div className="mt-4">
-              <Link to="/book">
-                <button className="w-full px-6 py-3 border-2 border-[#FFD166] text-black font-bold rounded hover:bg-[#FFD166] transition-all duration-300">
+            <div className="mt-4 pt-2">
+              <Link to="/book" onClick={() => setIsOpen(false)}>
+                <button className="w-full px-6 py-3 border-2 border-[#FFD166] text-black font-bold rounded hover:bg-[#FFD166] transition-all duration-300 text-base">
                   Book a Session
                 </button>
               </Link>

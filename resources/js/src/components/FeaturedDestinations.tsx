@@ -5,7 +5,7 @@ const Mission = () => {
     <div className="bg-white" style={{ fontFamily: 'Montserrat, sans-serif' }}>
       {/* Welcome Section */}
       <section className="text-center py-10 md:py-16 px-4 flex flex-col justify-center">
-        <h4 className="text-base md:text-sm text-black uppercase tracking-wide mb-3 md:mb-2 text-brand">
+        <h4 className="text-lg md:text-sm text-black uppercase tracking-wide mb-3 md:mb-2 text-brand">
           WELCOME TO
         </h4>
         
@@ -13,7 +13,7 @@ const Mission = () => {
           THRONE SOLUTIONS
         </h1>
         
-        <p className="text-lg md:text-base max-w-2xl mx-auto leading-relaxed md:leading-normal">
+        <p className="text-2xl md:text-lg max-w-2xl mx-auto leading-relaxed md:leading-normal">
           <strong>Throne Solutions Ltd</strong> is a dynamic consulting company specializing in <strong>leadership and business development</strong>. 
           With a history spanning six years, we have established ourselves as <strong>trusted advisors and partners</strong> to numerous 
           organizations seeking to unlock their full potential. Based in Nairobi, the <strong>thriving business hub of East Africa,</strong> 
